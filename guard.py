@@ -148,8 +148,10 @@ def check(raw: str, cwd: Optional[Path] = None) -> Verdict:
         for root in SYSTEM_ROOTS:
             if str(real) == root or str(real).startswith(root + "/"):
                 return Verdict(False, real, "system folder: Spacewise never scans the operating system")
-        if real.parent in (Path("/Users"), Path("/home")):
-            return Verdict(False, real, "another user's home folder")
+        if real in (Path("/Users/Shared"), Path("/home/Shared")) or (real.parent in (Path("/Users"), Path("/home")) and real.name == "Shared"):
+            return Verdict(False, real, "the shared folder for all users of this computer is outside your home folder")
+        if real.parent in (Path("/Users"), Path("/home")) or any(p in (Path("/Users"), Path("/home")) for p in real.parents):
+            return Verdict(False, real, "another user's folder")
         return Verdict(False, real, "outside your home folder and external drives")
     if inside_home:
         rel = real.relative_to(home)
