@@ -1,0 +1,24 @@
+name: spacewise
+version: 0.1.0
+manifest_version: 2
+api_version: 1
+description: >-
+  Free up space without the fear of losing what matters. Finds exact duplicates, similar and blurry
+  photos, leftover installers, large videos and other large files in a folder you name, explains
+  each finding, and moves only what you approve to the Trash (undoable). Large files are reported,
+  never moved. Refuses system, app, hidden, locked and library folders.
+author: ardianreffa
+license: MIT
+homepage: https://github.com/ardianreffa/spacewise
+tags: [storage, photos, duplicates, cleanup, local]
+requires_hermes: ">=0.23.0"
+provides_tools:
+  - spacewise_scan
+  - spacewise_preview
+  - spacewise_trash
+  - spacewise_undo
+provides_hooks:
+  - pre_tool_call
+python_dependencies:
+  - "Pillow>=11.0,<14"
+  - "pillow-heif>=1.4,<2"
